@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nx"],
+  "plugins": ["@nx", "unicorn", "simple-import-sort", "prettier", "react-hooks"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -13,17 +13,144 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "type:theme",
+                "onlyDependOnLibsWithTags": ["type:theme"]
+              },
+              {
+                "sourceTag": "type:utils",
+                "onlyDependOnLibsWithTags": ["type:theme", "type:utils"]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:theme", "type:utils", "type:data-access"]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": ["type:theme", "type:utils", "type:data-access", "type:ui"]
+              },
+              {
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": ["type:theme", "type:utils", "type:data-access", "type:ui", "type:feature"]
+              },
+              {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": ["type:theme", "type:utils", "type:data-access", "type:ui", "type:feature"]
+              },
+              {
+                "sourceTag": "domain:shared",
+                "onlyDependOnLibsWithTags": ["domain:shared"]
+              },
+              {
+                "sourceTag": "domain:device",
+                "onlyDependOnLibsWithTags": ["domain:device", "domain:shared"]
               }
             ]
           }
-        ]
+        ],
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "explicit",
+            "overrides": {
+              "accessors": "explicit",
+              "constructors": "explicit",
+              "methods": "explicit",
+              "properties": "explicit",
+              "parameterProperties": "explicit"
+            }
+          }
+        ],
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": [
+              "public-static-field",
+              "protected-static-field",
+              "private-static-field",
+              "public-instance-field",
+              "protected-instance-field",
+              "private-instance-field",
+              "public-static-method",
+              "protected-static-method",
+              "private-static-method",
+              "public-constructor",
+              "protected-constructor",
+              "private-constructor",
+              "public-instance-method",
+              "protected-instance-method",
+              "private-instance-method"
+            ]
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "interface",
+            "format": ["PascalCase"],
+            "custom": {
+              "regex": "^I[A-Z]",
+              "match": true
+            },
+            "leadingUnderscore": "forbid",
+            "trailingUnderscore": "forbid"
+          },
+          {
+            "selector": "typeAlias",
+            "format": ["PascalCase"],
+            "custom": {
+              "regex": "^T[A-Z]",
+              "match": true
+            },
+            "leadingUnderscore": "forbid",
+            "trailingUnderscore": "forbid"
+          },
+          {
+            "selector": "variable",
+            "format": ["strictCamelCase", "StrictPascalCase", "UPPER_CASE"],
+            "leadingUnderscore": "forbid",
+            "trailingUnderscore": "forbid"
+          },
+          {
+            "selector": "enum",
+            "format": ["UPPER_CASE"],
+            "leadingUnderscore": "forbid",
+            "trailingUnderscore": "forbid"
+          }
+        ],
+        "@typescript-eslint/semi": ["error", "always"],
+        "@typescript-eslint/member-delimiter-style": [
+          "error",
+          {
+            "multiline": {
+              "delimiter": "semi",
+              "requireLast": true
+            },
+            "singleline": {
+              "delimiter": "semi",
+              "requireLast": false
+            }
+          }
+        ],
+        "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
+        "no-else-return": "error",
+        "unicorn/new-for-builtins": "error",
+        "unicorn/prefer-switch": "error",
+        "unicorn/string-content": "error",
+        "unicorn/filename-case": "error",
+        "react/jsx-no-useless-fragment": "off",
+        "react-hooks/exhaustive-deps": "error",
+        "simple-import-sort/imports": "error",
+        "prettier/prettier": "error"
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
+      "extends": [
+        "plugin:@nx/typescript",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
       "rules": {}
     },
     {
