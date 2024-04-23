@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "prepare": "husky",
     "start": "nx serve od",
     "build": "nx build od --prod",
     "test": "nx run-many --target=test --all --parallel",
