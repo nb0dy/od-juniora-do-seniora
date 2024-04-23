@@ -2,7 +2,17 @@
   "name": "@od-juniora-do-seniora/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx serve od",
+    "build": "nx build od --prod",
+    "test": "nx run-many --target=test --all --parallel",
+    "lint:check": "nx run-many --all --target=lint --parallel",
+    "lint:fix": "nx run-many --all --target=lint --fix --parallel",
+    "format:fix": "nx format:write --configuration ./.prettierrc",
+    "format:check": "nx format:check --configuration ./.prettierrc",
+    "code:check": "npm run format:check && npm run lint:check",
+    "code:fix": "npm run format:fix && npm run lint:fix"
+  },
   "private": true,
   "dependencies": {
     "react": "18.2.0",
@@ -11,6 +21,8 @@
     "styled-components": "5.3.6"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@nx/cypress": "18.3.3",
     "@nx/eslint": "18.3.3",
     "@nx/eslint-plugin": "18.3.3",
@@ -41,11 +53,15 @@
     "eslint-plugin-cypress": "^2.13.4",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "eslint-plugin-unicorn": "^52.0.0",
+    "husky": "^9.0.11",
     "jsdom": "~22.1.0",
     "nx": "18.3.3",
-    "prettier": "^2.6.2",
+    "prettier": "^3.2.5",
     "typescript": "~5.4.2",
     "vite": "~5.0.0",
     "vitest": "^1.3.1"
