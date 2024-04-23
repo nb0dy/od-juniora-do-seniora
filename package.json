@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky",
-    "start": "nx serve od",
-    "build": "nx build od --prod",
+    "start": "nx serve od-juniora-do-seniora",
+    "build": "nx build od-juniora-do-seniora --prod",
     "test": "nx run-many --target=test --all --parallel",
     "lint:check": "nx run-many --all --target=lint --parallel",
     "lint:fix": "nx run-many --all --target=lint --fix --parallel",

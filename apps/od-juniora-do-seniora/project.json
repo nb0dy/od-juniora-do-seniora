@@ -1,9 +1,9 @@
 {
-  "name": "od",
+  "name": "od-juniora-do-seniora",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/od-juniora-do-seniora/src",
   "projectType": "application",
   "tags": ["type:app"],
-  "// targets": "to see all targets run: nx show project od --web",
+  "// targets": "to see all targets run: nx show project od-juniora-do-seniora --web",
   "targets": {}
 }
