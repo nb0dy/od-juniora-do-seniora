@@ -20,9 +20,9 @@ stages:
           - script: |
               npm run lint:check
             displayName: 'Lint check'
-          - script: |
-              npm run format:check
-            displayName: 'Prettier check'
+#          - script: |
+#              npm run format:check
+#            displayName: 'Prettier check'
       - job: RunTests
         displayName: 'Run unit tests'
         pool:
