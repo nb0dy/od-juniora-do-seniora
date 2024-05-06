@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/apps/od',
+  cacheDir: '../../node_modules/.vite/apps/od-juniora-do-seniora',
 
   server: {
     port: 4200,
@@ -25,7 +25,7 @@ export default defineConfig({
   // },
 
   build: {
-    outDir: '../../dist/apps/od',
+    outDir: '../../dist/apps/od-juniora-do-seniora',
     reportCompressedSize: true,
     commonjsOptions: {
       transformMixedEsModules: true,
@@ -42,7 +42,7 @@ export default defineConfig({
 
     reporters: ['default'],
     coverage: {
-      reportsDirectory: '../../coverage/apps/od',
+      reportsDirectory: '../../coverage/apps/od-juniora-do-seniora',
       provider: 'v8',
     },
   },

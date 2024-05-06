@@ -16,9 +16,9 @@ stages:
   - stage: ${{ parameters.environment }}
     displayName: ${{ parameters.displayName }}
     dependsOn:
-    - Build
-    - ${{ if parameters.dependsOn }}:
-        - ${{ parameters.dependsOn }}
+      - Build
+      - ${{ if parameters.dependsOn }}:
+          - ${{ parameters.dependsOn }}
     variables:
       - group: ${{ parameters.variableGroup }}
     jobs:
@@ -42,6 +42,6 @@ stages:
             inputs:
               workingDirectory: $(Pipeline.Workspace)
               azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_GRASS_030903A03)
-              app_location: "/deploy"
-              api_location: ""
-              output_location: "build"
+              app_location: '/deploy'
+              api_location: ''
+              output_location: 'build'

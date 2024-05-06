@@ -20,9 +20,9 @@ stages:
           - script: |
               npm run lint:check
             displayName: 'Lint check'
-#          - script: |
-#              npm run format:check
-#            displayName: 'Prettier check'
+      #          - script: |
+      #              npm run format:check
+      #            displayName: 'Prettier check'
       - job: RunTests
         displayName: 'Run unit tests'
         pool:
@@ -61,7 +61,8 @@ stages:
               npm ci
             displayName: 'Install dependencies'
           - script: |
-              echo NX_APP_URL='#{NX_APP_URL}' > .env
+              echo NX_APP_URL='/' > .env
+              echo VITE_BUILD_VERSION_NUMBER='$(Build.BuildId)' >> .env
             displayName: 'Build'
           - script: |
               npm run build
@@ -69,7 +70,7 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'Zip files'
             inputs:
-              rootFolderOrFile: './dist/apps/od'
+              rootFolderOrFile: './dist/apps/od-juniora-do-seniora'
               includeRootFolder: false
               archiveType: 'zip'
               archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
