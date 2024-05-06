@@ -1,0 +1,64 @@
+parameters:
+  - name: 'variableGroup'
+    type: string
+    default: ''
+  - name: 'displayName'
+    type: string
+    default: ''
+  - name: 'environment'
+    type: string
+    default: ''
+  - name: 'dependsOn'
+    type: string
+    default: ''
+
+stages:
+  - stage: ${{ parameters.environment }}
+    displayName: ${{ parameters.displayName }}
+    dependsOn:
+    - Build
+    - ${{ if parameters.dependsOn }}:
+        - ${{ parameters.dependsOn }}
+    variables:
+      - group: ${{ parameters.variableGroup }}
+    jobs:
+      - deployment: Deploy
+        displayName: 'Deploy'
+        pool:
+          vmImage: 'ubuntu-20.04'
+        environment: ${{ parameters.environment }}
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: image-senior
+                  displayName: 'Download build'
+                - task: ExtractFiles@1
+                  displayName: 'Extract files'
+                  inputs:
+                    archiveFilePatterns: '$(Pipeline.Workspace)/**/*.zip'
+                    destinationFolder: '$(Pipeline.Workspace)/deploy'
+                - task: replacetokens@5
+                  inputs:
+                    targetFiles: '$(Pipeline.Workspace)/deploy/*.js'
+                    encoding: 'auto'
+                    tokenPattern: 'default'
+                    writeBOM: true
+                    actionOnMissing: 'warn'
+                    keepToken: false
+                    actionOnNoFiles: 'continue'
+                    enableTransforms: false
+                    enableRecursion: false
+                    useLegacyPattern: false
+                    enableTelemetry: true
+                - script: |
+                    echo "const config = (() => ({ appUrl: '' }))();" > $(Pipeline.Workspace)/deploy/config.js
+                  displayName: 'Create config.js'
+                - task: AzureStaticWebApp@0
+                  inputs:
+                    workingDirectory: $(Pipeline.Workspace)
+                    azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
+                    app_location: "/deploy"
+                    api_location: ""
+                    output_location: "build"

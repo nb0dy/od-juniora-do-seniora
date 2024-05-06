@@ -1,0 +1,60 @@
+trigger:
+- develop
+- feature/*
+- release/*
+- hotfix/*
+- main
+
+variables:
+  - name: isDevelop
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/develop') }}
+  - name: isRelease
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/release/') }}
+  - name: isHotfix
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/') }}
+  - name: isMain
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/main') }}
+  - name: isCiCdTest
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/ci-cd') }}
+  - name: canDeployOnDev
+    value: ${{ or(eq(variables['isDevelop'], 'true'), eq(variables['isHotfix'], 'true'), eq(variables['isCiCdTest'], 'true')) }}
+  - name: canDeployOnQA
+    value: ${{ or(eq(variables['isDevelop'], 'true'), eq(variables['isHotfix'], 'true'), eq(variables['isRelease'], 'true')) }}
+  - name: canDeployOnStaging
+    value: ${{ or(eq(variables['isHotfix'], 'true'), eq(variables['isRelease'], 'true')) }}
+  - name: canDeployOnProduction
+    value: ${{ or(eq(variables['isHotfix'], 'true'), eq(variables['isRelease'], 'true'), eq(variables['isMain'], 'true')) }}
+  - group: platform-basic
+
+stages:
+  - template: pipelines/azure/build.template.yml
+
+  - ${{ if eq(variables['canDeployOnDev'], 'true') }}:
+    - template: pipelines/azure/deploy.template.yml
+      parameters:
+        displayName: 'Deploy to Dev'
+        environment: 'dev'
+        variableGroup: 'platform-dev'
+
+  - ${{ if eq(variables['canDeployOnQA'], 'true') }}:
+    - template: pipelines/azure/deploy.template.yml
+      parameters:
+        displayName: 'Deploy to QA'
+        environment: 'qa'
+        variableGroup: 'platform-qa'
+
+  - ${{ if eq(variables['canDeployOnStaging'], 'true') }}:
+    - template: pipelines/azure/deploy.template.yml
+      parameters:
+        displayName: 'Deploy to Staging'
+        environment: 'staging'
+        variableGroup: 'platform-staging'
+        dependsOn: 'qa'
+
+  - ${{ if eq(variables['canDeployOnProduction'], 'true') }}:
+    - template: pipelines/azure/deploy.template.yml
+      parameters:
+        displayName: 'Deploy to Production'
+        environment: 'prod'
+        variableGroup: 'platform-prod'
+        dependsOn: 'staging'
