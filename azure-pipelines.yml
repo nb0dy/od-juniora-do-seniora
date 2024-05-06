@@ -50,11 +50,3 @@ stages:
         environment: 'staging'
         variableGroup: 'platform-staging'
         dependsOn: 'qa'
-
-  - ${{ if eq(variables['canDeployOnProduction'], 'true') }}:
-    - template: pipelines/azure/deploy.template.yml
-      parameters:
-        displayName: 'Deploy to Production'
-        environment: 'prod'
-        variableGroup: 'platform-prod'
-        dependsOn: 'staging'
