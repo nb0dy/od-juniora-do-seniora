@@ -22,7 +22,7 @@ stages:
     variables:
       - group: ${{ parameters.variableGroup }}
     jobs:
-      - deployment: Deploy
+      - job: Deploy
         displayName: 'Deploy'
         pool:
           vmImage: 'ubuntu-20.04'
