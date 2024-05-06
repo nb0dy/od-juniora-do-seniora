@@ -34,19 +34,4 @@ stages:
       parameters:
         displayName: 'Deploy to Dev'
         environment: 'dev'
-        variableGroup: 'platform-dev'
-
-  - ${{ if eq(variables['canDeployOnQA'], 'true') }}:
-    - template: pipelines/azure/deploy.template.yml
-      parameters:
-        displayName: 'Deploy to QA'
-        environment: 'qa'
-        variableGroup: 'platform-qa'
-
-  - ${{ if eq(variables['canDeployOnStaging'], 'true') }}:
-    - template: pipelines/azure/deploy.template.yml
-      parameters:
-        displayName: 'Deploy to Staging'
-        environment: 'staging'
-        variableGroup: 'platform-staging'
-        dependsOn: 'qa'
+        variableGroup: 'platform-basic'

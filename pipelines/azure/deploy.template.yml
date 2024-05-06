@@ -26,7 +26,6 @@ stages:
         displayName: 'Deploy'
         pool:
           vmImage: 'ubuntu-20.04'
-        environment: ${{ parameters.environment }}
         strategy:
           runOnce:
             deploy:
