@@ -39,19 +39,6 @@ stages:
                   inputs:
                     archiveFilePatterns: '$(Pipeline.Workspace)/**/*.zip'
                     destinationFolder: '$(Pipeline.Workspace)/deploy'
-                - task: replacetokens@5
-                  inputs:
-                    targetFiles: '$(Pipeline.Workspace)/deploy/*.js'
-                    encoding: 'auto'
-                    tokenPattern: 'default'
-                    writeBOM: true
-                    actionOnMissing: 'warn'
-                    keepToken: false
-                    actionOnNoFiles: 'continue'
-                    enableTransforms: false
-                    enableRecursion: false
-                    useLegacyPattern: false
-                    enableTelemetry: true
                 - script: |
                     echo "const config = (() => ({ appUrl: '' }))();" > $(Pipeline.Workspace)/deploy/config.js
                   displayName: 'Create config.js'
