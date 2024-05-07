@@ -1,7 +1,4 @@
 parameters:
-  - name: 'variableGroup'
-    type: string
-    default: ''
   - name: 'displayName'
     type: string
     default: ''
@@ -19,8 +16,6 @@ stages:
       - Build
       - ${{ if parameters.dependsOn }}:
           - ${{ parameters.dependsOn }}
-    variables:
-      - group: ${{ parameters.variableGroup }}
     jobs:
       - job: Deploy
         displayName: 'Deploy'
