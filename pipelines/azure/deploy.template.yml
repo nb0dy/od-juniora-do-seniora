@@ -1,7 +1,4 @@
 parameters:
-  - name: 'variableGroup'
-    type: string
-    default: ''
   - name: 'displayName'
     type: string
     default: ''
@@ -16,35 +13,30 @@ stages:
   - stage: ${{ parameters.environment }}
     displayName: ${{ parameters.displayName }}
     dependsOn:
-    - Build
-    - ${{ if parameters.dependsOn }}:
-        - ${{ parameters.dependsOn }}
-    variables:
-      - group: ${{ parameters.variableGroup }}
+      - Build
+      - ${{ if parameters.dependsOn }}:
+          - ${{ parameters.dependsOn }}
     jobs:
-      - deployment: Deploy
+      - job: Deploy
         displayName: 'Deploy'
         pool:
           vmImage: 'ubuntu-20.04'
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - download: current
-                  artifact: image-senior
-                  displayName: 'Download build'
-                - task: ExtractFiles@1
-                  displayName: 'Extract files'
-                  inputs:
-                    archiveFilePatterns: '$(Pipeline.Workspace)/**/*.zip'
-                    destinationFolder: '$(Pipeline.Workspace)/deploy'
-                - script: |
-                    echo "const config = (() => ({ appUrl: '' }))();" > $(Pipeline.Workspace)/deploy/config.js
-                  displayName: 'Create config.js'
-                - task: AzureStaticWebApp@0
-                  inputs:
-                    workingDirectory: $(Pipeline.Workspace)
-                    azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
-                    app_location: "/deploy"
-                    api_location: ""
-                    output_location: "build"
+        steps:
+          - download: current
+            artifact: image-senior
+            displayName: 'Download build'
+          - task: ExtractFiles@1
+            displayName: 'Extract files'
+            inputs:
+              archiveFilePatterns: '$(Pipeline.Workspace)/**/*.zip'
+              destinationFolder: '$(Pipeline.Workspace)/deploy'
+          - script: |
+              echo "const config = (() => ({ appUrl: '' }))();" > $(Pipeline.Workspace)/deploy/config.js
+            displayName: 'Create config.js'
+          - task: AzureStaticWebApp@0
+            inputs:
+              workingDirectory: $(Pipeline.Workspace)
+              azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_GRASS_030903A03)
+              app_location: '/deploy'
+              api_location: ''
+              output_location: 'build'

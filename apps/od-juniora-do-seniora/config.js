@@ -1,3 +1,3 @@
-export const env = {
+const env = (() => ({
   appUrl: '',
-};
+}))();

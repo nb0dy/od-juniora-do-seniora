@@ -34,4 +34,3 @@ stages:
       parameters:
         displayName: 'Deploy to Dev'
         environment: 'dev'
-        variableGroup: 'platform-basic'
