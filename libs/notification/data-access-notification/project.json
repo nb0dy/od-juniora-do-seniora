@@ -1,0 +1,9 @@
+{
+  "name": "notification-data-access-notification",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/notification/data-access-notification/src",
+  "projectType": "library",
+  "tags": ["type:data-access", "scope:notification"],
+  "// targets": "to see all targets run: nx show project notification-data-access-notification --web",
+  "targets": {}
+}

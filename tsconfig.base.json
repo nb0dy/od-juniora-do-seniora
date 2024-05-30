@@ -14,7 +14,23 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@od-juniora-do-seniora/device/data-access-device": ["libs/device/data-access-device/src/index.ts"],
+      "@od-juniora-do-seniora/device/feature-device-dashboard": ["libs/device/feature-device-dashboard/src/index.ts"],
+      "@od-juniora-do-seniora/device/ui-device-list": ["libs/device/ui-device-list/src/index.ts"],
+      "@od-juniora-do-seniora/notification/data-access-notification": [
+        "libs/notification/data-access-notification/src/index.ts"
+      ],
+      "@od-juniora-do-seniora/notification/feature-notification-list": [
+        "libs/notification/feature-notification-list/src/index.ts"
+      ],
+      "@od-juniora-do-seniora/notification/ui-notification-list": [
+        "libs/notification/ui-notification-list/src/index.ts"
+      ],
+      "@od-juniora-do-seniora/shared/ui/form": ["libs/shared/ui/form/src/index.ts"],
+      "@od-juniora-do-seniora/shared/utils//router": ["libs/shared/utils/router/src/index.ts"],
+      "@od-juniora-do-seniora/shared/utils/role-to-permission": ["libs/shared/utils/role-to-permission/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

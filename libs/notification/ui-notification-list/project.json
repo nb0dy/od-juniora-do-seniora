@@ -1,0 +1,9 @@
+{
+  "name": "notification-ui-notification-list",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/notification/ui-notification-list/src",
+  "projectType": "library",
+  "tags": ["type:utils", "scope:notification"],
+  "// targets": "to see all targets run: nx show project notification-ui-notification-list --web",
+  "targets": {}
+}

@@ -22,7 +22,7 @@
               },
               {
                 "sourceTag": "type:data-access",
-                "onlyDependOnLibsWithTags": ["type:theme", "type:utils", "type:data-access"]
+                "onlyDependOnLibsWithTags": ["type:theme", "type:utils"]
               },
               {
                 "sourceTag": "type:ui",
@@ -37,12 +37,16 @@
                 "onlyDependOnLibsWithTags": ["type:theme", "type:utils", "type:data-access", "type:ui", "type:feature"]
               },
               {
-                "sourceTag": "domain:shared",
-                "onlyDependOnLibsWithTags": ["domain:shared"]
+                "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": ["scope:shared"]
               },
               {
-                "sourceTag": "domain:device",
-                "onlyDependOnLibsWithTags": ["domain:device", "domain:shared"]
+                "sourceTag": "scope:device",
+                "onlyDependOnLibsWithTags": ["scope:device", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:notification",
+                "onlyDependOnLibsWithTags": ["scope:notification", "scope:shared"]
               }
             ]
           }
